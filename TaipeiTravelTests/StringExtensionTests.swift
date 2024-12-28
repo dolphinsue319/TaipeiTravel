@@ -12,7 +12,7 @@ struct StringExtensionTests {
     @Test func removesCarriage() async throws {
         let originalString = "Hello\r\nWorld\r\nThis is a test."
         let cleanedString = originalString.removingCarriageReturnsAndNewLines()
-        #expect(cleanedString == "HelloWorldThis is a test.")
+        #expect(cleanedString == "Hello\\nWorld\\nThis is a test.")
     }
 
 }

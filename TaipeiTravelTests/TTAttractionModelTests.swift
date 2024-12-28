@@ -11,7 +11,7 @@ import Foundation
 struct TTAttractionModelTests {
 
     @Test func parseModels() async throws {
-        let models = try JSONDecoder().decode([TTAttractionModelImpl].self, from: jsonString.data(using: .utf8)!)
+        let models = try JSONDecoder().decode([TTAttractionModelImpl].self, from: jsonString.removingCarriageReturnsAndNewLines().data(using: .utf8)!)
         #expect(models.count == 30)
         for model in models {
             #expect(model.id > 0)
