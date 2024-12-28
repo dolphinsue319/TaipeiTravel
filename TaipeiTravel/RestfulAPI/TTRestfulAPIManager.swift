@@ -27,30 +27,31 @@ struct TTAttractionResponseContainerImpl: TTAttractionResponseContainer, Decodab
 }
 
 protocol TTRestfulAPIManager {
+    /// page index 從 1 開始
     func fetchAttractionArray(at pageIndex: Int) async throws -> Result<any TTAttractionResponseContainer, TTError>
 }
 
 class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
-    
+
     func fetchAttractionArray(at pageIndex: Int) async -> Result<any TTAttractionResponseContainer, TTError> {
-        
+
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        
+
         guard let url = URL(string: "https://www.travel.taipei/open-api/zh-tw/Attractions/All?page=\(pageIndex)") else {
             return .failure(.invalidURL)
         }
-        
+
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
+
         do {
             let (data, response) = try await session.data(for: request)
-            
+
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 return .failure(.invalidServerResponse)
             }
-            
+
             do {
                 let decoder = JSONDecoder()
                 let attractionResponse = try decoder.decode(TTAttractionResponseContainerImpl.self, from: data)

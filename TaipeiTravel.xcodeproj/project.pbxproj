@@ -43,6 +43,7 @@
 				RestfulAPI/TTAttractionModel.swift,
 				RestfulAPI/TTRestfulAPIManager.swift,
 				StringExtension.swift,
+				TTError.swift,
 			);
 			target = 828E7E222D1F7CD800D39897 /* TaipeiTravelTests */;
 		};
