@@ -40,8 +40,9 @@
 		828E7E652D1F7DAC00D39897 /* Exceptions for "TaipeiTravel" folder in "TaipeiTravelTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				RestfulAPI/TTAttractionModel.swift,
+				RestfulAPI/TTRestfulAPIManager.swift,
 				StringExtension.swift,
-				TTAttractionModel.swift,
 			);
 			target = 828E7E222D1F7CD800D39897 /* TaipeiTravelTests */;
 		};

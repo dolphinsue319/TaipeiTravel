@@ -7,13 +7,13 @@
 
 import Foundation
 
-// 採用 POP, 抽出介面與實作，這樣一來不論以後 API response 怎麼變，都只需要改這個 .swift 的內容，不會影響到其他 .swift 檔
+// 採用 POP, 將介面與實作切割開來，這樣一來不論以後 API response 怎麼變，都只需要改這個實作的部份，不會影響到其他 .swift 檔
 protocol TTAttractionModel {
     var id: Int { get }
     var name: String { get }
     var introduction: String? { get }
     var urlString: String? { get }
-    var imageURLStringArray: [String] { get }
+    var imageURLStringArray: [String]? { get }
 }
 
 struct TTAttractionModelImageModel: Decodable {
@@ -44,7 +44,7 @@ struct TTAttractionModelImageModel: Decodable {
     }
 }
 
-struct TTAttractionModelImpl: Decodable {
+struct TTAttractionModelImpl: TTAttractionModel, Decodable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
