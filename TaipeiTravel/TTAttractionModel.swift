@@ -7,6 +7,15 @@
 
 import Foundation
 
+// 採用 POP, 抽出介面與實作，這樣一來不論以後 API response 怎麼變，都只需要改這個 .swift 的內容，不會影響到其他 .swift 檔
+protocol TTAttractionModel {
+    var id: Int { get }
+    var name: String { get }
+    var introduction: String? { get }
+    var urlString: String? { get }
+    var imageURLStringArray: [String] { get }
+}
+
 struct TTAttractionModelImageModel: Decodable {
     enum ImageType {
         case jpg
@@ -46,21 +55,21 @@ struct TTAttractionModelImpl: Decodable {
     let id : Int
     let name : String
     let introduction: String?
-    let url: String?
-    private let originalImageArray: [TTAttractionModelImageModel]?
+    let urlString: String?
     let imageURLStringArray: [String]?
+    private let originalImageArray: [TTAttractionModelImageModel]?
 
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
-        // 清理 introduction 中的不合法字元
+        // 清理 introduction 中的 \r\n
         if let rawIntroduction = try? container.decode(String.self, forKey: .introduction) {
             introduction = rawIntroduction.removingCarriageReturnsAndNewLines()
         } else {
             introduction = nil
         }
-        url = try container.decodeIfPresent(String.self, forKey: .url)
+        urlString = try container.decodeIfPresent(String.self, forKey: .url)
         guard let imageModelArray = try container.decodeIfPresent([TTAttractionModelImageModel].self, forKey: .originalImageArray) else {
             originalImageArray = nil
             imageURLStringArray = nil
