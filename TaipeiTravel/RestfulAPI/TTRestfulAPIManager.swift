@@ -7,6 +7,18 @@
 
 import Foundation
 
+enum TTRestfulAPILanguageCode: String {
+    case zhTw = "zh-tw"
+    case zhCn = "zh-cn"
+    case en = "en"
+    case ja = "ja"
+    case ko = "ko"
+    case es = "es"
+    case id = "id"
+    case th = "th"
+    case vi = "vi"
+}
+
 protocol TTAttractionResponseContainer {
     var attractionArray: [any TTAttractionModel] { get }
     var total: Int { get }
@@ -28,17 +40,17 @@ struct TTAttractionResponseContainerImpl: TTAttractionResponseContainer, Decodab
 
 protocol TTRestfulAPIManager {
     /// page index 從 1 開始
-    func fetchAttractionArray(at pageIndex: Int) async throws -> Result<any TTAttractionResponseContainer, TTError>
+    static func fetchAttractionArray(at pageIndex: Int, languageCode: TTRestfulAPILanguageCode) async throws -> Result<any TTAttractionResponseContainer, TTError>
 }
 
 class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
 
-    func fetchAttractionArray(at pageIndex: Int) async -> Result<any TTAttractionResponseContainer, TTError> {
+    static func fetchAttractionArray(at pageIndex: Int, languageCode: TTRestfulAPILanguageCode) async -> Result<any TTAttractionResponseContainer, TTError> {
 
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
 
-        guard let url = URL(string: "https://www.travel.taipei/open-api/zh-tw/Attractions/All?page=\(pageIndex)") else {
+        guard let url = URL(string: "https://www.travel.taipei/open-api/\(languageCode.rawValue)/Attractions/All?page=\(pageIndex)") else {
             return .failure(.invalidURL)
         }
 
@@ -58,7 +70,7 @@ class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
                 return .success(attractionResponse)
             } catch let decodingError as DecodingError {
                 // 處理 JSON 解碼錯誤
-                return .failure(.invalidJSON)
+                return .failure(.invalidJSON(decodingError))
             }
         } catch let urlSessionError as URLError {
             // 處理 URLSession 錯誤

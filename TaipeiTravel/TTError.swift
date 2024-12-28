@@ -11,6 +11,6 @@ enum TTError: Error {
     case unknown(Error)
     case invalidURL
     case invalidServerResponse
-    case invalidJSON
+    case invalidJSON(Error)
     case URLSessionError(Error)
 }

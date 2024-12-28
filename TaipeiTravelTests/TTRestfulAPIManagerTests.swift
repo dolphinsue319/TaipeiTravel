@@ -10,7 +10,7 @@ import Testing
 struct TTRestfulAPIManagerTests {
 
     @Test func fetchAttractionArray() async throws {
-        let result = await TTRestfulAPIManagerImpl().fetchAttractionArray(at: 1)
+        let result = await TTRestfulAPIManagerImpl.fetchAttractionArray(at: 1, languageCode: .en)
         switch result {
         case .success(let success):
             #expect(success.attractionArray.count > 0)
