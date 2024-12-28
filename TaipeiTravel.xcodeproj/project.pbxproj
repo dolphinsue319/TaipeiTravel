@@ -37,6 +37,13 @@
 			);
 			target = 828E7E0C2D1F7CD700D39897 /* TaipeiTravel */;
 		};
+		828E7E652D1F7DAC00D39897 /* Exceptions for "TaipeiTravel" folder in "TaipeiTravelTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				TTAttractionModel.swift,
+			);
+			target = 828E7E222D1F7CD800D39897 /* TaipeiTravelTests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -44,6 +51,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				828E7E352D1F7CD800D39897 /* Exceptions for "TaipeiTravel" folder in "TaipeiTravel" target */,
+				828E7E652D1F7DAC00D39897 /* Exceptions for "TaipeiTravel" folder in "TaipeiTravelTests" target */,
 			);
 			path = TaipeiTravel;
 			sourceTree = "<group>";
