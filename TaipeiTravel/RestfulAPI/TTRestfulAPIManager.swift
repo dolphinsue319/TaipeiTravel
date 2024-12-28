@@ -27,26 +27,20 @@ struct TTAttractionResponseContainerImpl: TTAttractionResponseContainer, Decodab
 }
 
 protocol TTRestfulAPIManager {
-    func fetchAttractionArray(at pageIndex: Int) async -> Result<any TTAttractionResponseContainer, Error>
+    func fetchAttractionArray(at pageIndex: Int) async throws -> Result<any TTAttractionResponseContainer, TTError>
 }
 
 class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
-    func fetchAttractionArray(at pageIndex: Int) async -> Result<any TTAttractionResponseContainer, Error> {
+
+    func fetchAttractionArray(at pageIndex: Int) async -> Result<any TTAttractionResponseContainer, TTError> {
+        
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        
-        guard var urlComponents = URLComponents(string: "https://www.travel.taipei/open-api/zh-tw/Attractions/All") else {
-            return .failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
+
+        guard let url = URL(string: "https://www.travel.taipei/open-api/zh-tw/Attractions/All?page=\(pageIndex)") else {
+            return .failure(.invalidURL)
         }
-        
-        urlComponents.queryItems = [
-            URLQueryItem(name: "page", value: "\(pageIndex)")
-        ]
-        
-        guard let url = urlComponents.url else {
-            return .failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"]))
-        }
-        
+
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
@@ -54,7 +48,7 @@ class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
             let (data, response) = try await session.data(for: request)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                return .failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid response from server"]))
+                return .failure(.invalidServerResponse)
             }
             
             let decoder = JSONDecoder()
@@ -62,7 +56,7 @@ class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
 
             return .success(attractionResponse)
         } catch {
-            return .failure(error)
+            return .failure(.URLSessionError(error))
         }
     }
 }
