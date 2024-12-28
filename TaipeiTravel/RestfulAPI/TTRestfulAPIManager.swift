@@ -31,16 +31,16 @@ protocol TTRestfulAPIManager {
 }
 
 class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
-
+    
     func fetchAttractionArray(at pageIndex: Int) async -> Result<any TTAttractionResponseContainer, TTError> {
         
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-
+        
         guard let url = URL(string: "https://www.travel.taipei/open-api/zh-tw/Attractions/All?page=\(pageIndex)") else {
             return .failure(.invalidURL)
         }
-
+        
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
@@ -51,12 +51,20 @@ class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
                 return .failure(.invalidServerResponse)
             }
             
-            let decoder = JSONDecoder()
-            let attractionResponse = try decoder.decode(TTAttractionResponseContainerImpl.self, from: data)
-
-            return .success(attractionResponse)
+            do {
+                let decoder = JSONDecoder()
+                let attractionResponse = try decoder.decode(TTAttractionResponseContainerImpl.self, from: data)
+                return .success(attractionResponse)
+            } catch let decodingError as DecodingError {
+                // 處理 JSON 解碼錯誤
+                return .failure(.invalidJSON)
+            }
+        } catch let urlSessionError as URLError {
+            // 處理 URLSession 錯誤
+            return .failure(.URLSessionError(urlSessionError))
         } catch {
-            return .failure(.URLSessionError(error))
+            // 處理其他錯誤
+            return .failure(.unknown(error))
         }
     }
 }

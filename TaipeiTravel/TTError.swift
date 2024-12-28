@@ -8,6 +8,7 @@
 import Foundation
 
 enum TTError: Error {
+    case unknown(Error)
     case invalidURL
     case invalidServerResponse
     case invalidJSON
