@@ -54,7 +54,12 @@ struct TTAttractionModelImpl: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
-        introduction = try container.decode(String.self, forKey: .introduction)
+        // 清理 introduction 中的不合法字元
+        if let rawIntroduction = try? container.decode(String.self, forKey: .introduction) {
+            introduction = rawIntroduction.removingCarriageReturnsAndNewLines()
+        } else {
+            introduction = nil
+        }
         url = try container.decodeIfPresent(String.self, forKey: .url)
         guard let imageModelArray = try container.decodeIfPresent([TTAttractionModelImageModel].self, forKey: .originalImageArray) else {
             originalImageArray = nil
