@@ -7,16 +7,29 @@
 
 import Foundation
 
-enum TTRestfulAPILanguageCode: String {
-    case zhTw = "zh-tw"
-    case zhCn = "zh-cn"
-    case en = "en"
-    case ja = "ja"
-    case ko = "ko"
-    case es = "es"
-    case id = "id"
-    case th = "th"
-    case vi = "vi"
+private extension TTLocalization {
+    var languageCode: String {
+        switch self {
+        case .zhTw:
+            return "zh-tw"
+        case .zhCn:
+            return "zh-cn"
+        case .en:
+            return"en"
+        case .ja:
+            return"ja"
+        case .ko:
+            return "ko"
+        case .es:
+            return "es"
+        case .id:
+            return "id"
+        case .th:
+            return "th"
+        case .vi:
+            return "vi"
+        }
+    }
 }
 
 protocol TTAttractionResponseContainer {
@@ -40,17 +53,17 @@ struct TTAttractionResponseContainerImpl: TTAttractionResponseContainer, Decodab
 
 protocol TTRestfulAPIManager {
     /// page index 從 1 開始
-    func fetchAttractionArray(at pageIndex: Int, languageCode: TTRestfulAPILanguageCode) async throws -> Result<any TTAttractionResponseContainer, TTError>
+    func fetchAttractionArray(at pageIndex: Int, localization: TTLocalization) async throws -> Result<any TTAttractionResponseContainer, TTError>
 }
 
 class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
 
-    func fetchAttractionArray(at pageIndex: Int, languageCode: TTRestfulAPILanguageCode) async -> Result<any TTAttractionResponseContainer, TTError> {
+    func fetchAttractionArray(at pageIndex: Int, localization: TTLocalization) async -> Result<any TTAttractionResponseContainer, TTError> {
 
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
 
-        guard let url = URL(string: "https://www.travel.taipei/open-api/\(languageCode.rawValue)/Attractions/All?page=\(pageIndex)") else {
+        guard let url = URL(string: "https://www.travel.taipei/open-api/\(localization.languageCode)/Attractions/All?page=\(pageIndex)") else {
             return .failure(.invalidURL)
         }
 
