@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		820EC4822D21536F00AB0DA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 820EC4812D21536F00AB0DA1 /* Kingfisher */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		828E7E242D1F7CD800D39897 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -79,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				820EC4822D21536F00AB0DA1 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +145,7 @@
 			);
 			name = TaipeiTravel;
 			packageProductDependencies = (
+				820EC4812D21536F00AB0DA1 /* Kingfisher */,
 			);
 			productName = TaipeiTravel;
 			productReference = 828E7E0D2D1F7CD700D39897 /* TaipeiTravel.app */;
@@ -223,6 +229,9 @@
 			);
 			mainGroup = 828E7E042D1F7CD700D39897;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				820EC4802D21536F00AB0DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 828E7E0E2D1F7CD700D39897 /* Products */;
 			projectDirPath = "";
@@ -578,6 +587,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		820EC4802D21536F00AB0DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		820EC4812D21536F00AB0DA1 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 820EC4802D21536F00AB0DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 828E7E052D1F7CD700D39897 /* Project object */;
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import Kingfisher
 
 class TTAttractionsViewController: UIViewController {
 
@@ -53,11 +54,18 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfAttractions
     }
-    
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier, for: indexPath)
         guard let attraction = viewModel.attraction(at: indexPath.row) else { return cell }
         cell.textLabel?.text = attraction.name
+        if let imageURLString = attraction.imageURLStringArray?.first, let url = URL(string: imageURLString) {
+            cell.imageView?.kf.setImage(with: url)
+        }
         return cell
     }
 
