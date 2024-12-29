@@ -38,9 +38,8 @@ class TTAttractionsViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.cellIdentifier)
+        tableView.register(TTCell.self, forCellReuseIdentifier: Self.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .systemBackground
         return tableView
@@ -55,16 +54,17 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
         viewModel.numberOfAttractions
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier, for: indexPath)
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier, for: indexPath) as? TTCell else {
+            return UITableViewCell()
+        }
+
         guard let attraction = viewModel.attraction(at: indexPath.row) else { return cell }
-        cell.textLabel?.text = attraction.name
-        if let imageURLString = attraction.imageURLStringArray?.first, let url = URL(string: imageURLString) {
-            cell.imageView?.kf.setImage(with: url)
+        cell.name = attraction.name
+        cell.intro = attraction.introduction
+        if let imageURLString = attraction.imageURLStringArray?.first {
+            cell.imageURLString = imageURLString
         }
         return cell
     }
@@ -76,3 +76,80 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
     }
 }
 
+fileprivate class TTCell: UITableViewCell {
+
+    var name: String? {
+        didSet { nameLabel.text = name }
+    }
+
+    var intro: String? {
+        didSet { introLabel.text = intro }
+    }
+
+    var imageURLString: String? {
+        didSet {
+            guard let imageURLString else { return }
+            guard let url = URL(string: imageURLString) else { return }
+            preImageView.kf.setImage(with: url, placeholder: UIImage(named: "DownloadIcon"))
+        }
+    }
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+
+        contentView.addSubview(preImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(introLabel)
+
+        preImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
+        preImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        preImageView.widthAnchor.constraint(equalTo: preImageView.heightAnchor, multiplier: 1).isActive = true
+        preImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+
+        nameLabel.leadingAnchor.constraint(equalTo: preImageView.trailingAnchor, constant: 8).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
+        nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+
+        introLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4).isActive = true
+        introLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
+        introLabel.leadingAnchor.constraint(equalTo: preImageView.trailingAnchor, constant: 8).isActive = true
+        introLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Privates
+
+    private lazy var preImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 4
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .label
+        return label
+    }()
+
+    private lazy var introLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    
+}
