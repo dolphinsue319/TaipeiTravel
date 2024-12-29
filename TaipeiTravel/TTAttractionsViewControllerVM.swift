@@ -49,7 +49,7 @@ class TTAttractionsViewControllerVM {
     }
 
     // MARK: - Privates
-
+    // 因為 TTRestfulAPIManager 是個 prtotocol, 所以可以用 DI 的方式實作 unit test
     private let apiManager: any TTRestfulAPIManager
     private var totalAttractions: Int?
     private var attractionArray: [TTAttractionModel] = .init()
