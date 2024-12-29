@@ -40,12 +40,12 @@ struct TTAttractionResponseContainerImpl: TTAttractionResponseContainer, Decodab
 
 protocol TTRestfulAPIManager {
     /// page index 從 1 開始
-    static func fetchAttractionArray(at pageIndex: Int, languageCode: TTRestfulAPILanguageCode) async throws -> Result<any TTAttractionResponseContainer, TTError>
+    func fetchAttractionArray(at pageIndex: Int, languageCode: TTRestfulAPILanguageCode) async throws -> Result<any TTAttractionResponseContainer, TTError>
 }
 
 class TTRestfulAPIManagerImpl: TTRestfulAPIManager {
 
-    static func fetchAttractionArray(at pageIndex: Int, languageCode: TTRestfulAPILanguageCode) async -> Result<any TTAttractionResponseContainer, TTError> {
+    func fetchAttractionArray(at pageIndex: Int, languageCode: TTRestfulAPILanguageCode) async -> Result<any TTAttractionResponseContainer, TTError> {
 
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)

@@ -6,11 +6,20 @@
 //
 
 import UIKit
+import Combine
 
 class TTAttractionsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        viewModel.didFetchAttractions.sink { [weak self] in
+            guard let self else { return }
+            Task { @MainActor in
+                self.tableView.reloadData()
+            }
+        }.store(in: &subscriptions)
+
         tableView.dataSource = self
         tableView.delegate = self
 
@@ -19,10 +28,12 @@ class TTAttractionsViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        viewModel.fetchAttractions()
     }
 
     // MARK: - private
     static let cellIdentifier: String = "cell"
+    private let viewModel = TTAttractionsViewControllerVM(apiManager: TTRestfulAPIManagerImpl())
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,19 +44,27 @@ class TTAttractionsViewController: UIViewController {
         tableView.backgroundColor = .systemBackground
         return tableView
     }()
+
+    private var subscriptions: Set<AnyCancellable> = .init()
 }
 
 extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        viewModel.numberOfAttractions
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier, for: indexPath)
-        cell.textLabel?.text = "Attractions"
+        guard let attraction = viewModel.attraction(at: indexPath.row) else { return cell }
+        cell.textLabel?.text = attraction.name
         return cell
     }
-    
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == viewModel.numberOfAttractions - 2 {
+            viewModel.fetchAttractions()
+        }
+    }
 }
 
