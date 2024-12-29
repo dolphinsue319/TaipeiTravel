@@ -44,7 +44,7 @@ fileprivate struct TTAttractionResponseContainerMock: TTAttractionResponseContai
 
 fileprivate struct APIManagerMock: TTRestfulAPIManager {
 
-    func fetchAttractionArray(at pageIndex: Int, languageCode: TTRestfulAPILanguageCode) async throws -> Result<any TTAttractionResponseContainer, TTError> {
+    func fetchAttractionArray(at pageIndex: Int, localization: TTLocalization) async throws -> Result<any TTAttractionResponseContainer, TTError> {
         var attractionArray: [TTAttractionModelMock] = []
 
         for i in 0..<pageSize {

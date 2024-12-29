@@ -24,6 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		820EC47F2D2144D800AB0DA1 /* TaipeiTravel.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TaipeiTravel.xctestplan; sourceTree = "<group>"; };
 		828E7E0D2D1F7CD700D39897 /* TaipeiTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaipeiTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		828E7E232D1F7CD800D39897 /* TaipeiTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaipeiTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		828E7E2D2D1F7CD800D39897 /* TaipeiTravelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaipeiTravelUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +102,7 @@
 		828E7E042D1F7CD700D39897 = {
 			isa = PBXGroup;
 			children = (
+				820EC47F2D2144D800AB0DA1 /* TaipeiTravel.xctestplan */,
 				828E7E0F2D1F7CD700D39897 /* TaipeiTravel */,
 				828E7E262D1F7CD800D39897 /* TaipeiTravelTests */,
 				828E7E302D1F7CD800D39897 /* TaipeiTravelUITests */,

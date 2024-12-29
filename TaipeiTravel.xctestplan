@@ -1,0 +1,48 @@
+{
+  "configurations" : [
+    {
+      "id" : "5B18A9D9-8BE9-4DBE-985A-907E6DA9C022",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:TaipeiTravel.xcodeproj",
+      "identifier" : "828E7E0C2D1F7CD700D39897",
+      "name" : "TaipeiTravel"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : {
+        "suites" : [
+          {
+            "name" : "TTRestfulAPIManagerTests",
+            "testFunctions" : [
+              "fetchAttractionArray()"
+            ]
+          }
+        ]
+      },
+      "target" : {
+        "containerPath" : "container:TaipeiTravel.xcodeproj",
+        "identifier" : "828E7E222D1F7CD800D39897",
+        "name" : "TaipeiTravelTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:TaipeiTravel.xcodeproj",
+        "identifier" : "828E7E2C2D1F7CD800D39897",
+        "name" : "TaipeiTravelUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
