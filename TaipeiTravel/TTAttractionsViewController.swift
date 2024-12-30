@@ -14,6 +14,8 @@ class TTAttractionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationItem.title = String(localized: "touristAttractions")
+
         viewModel.didFetchAttractions.sink { [weak self] in
             guard let self else { return }
             Task { @MainActor in
