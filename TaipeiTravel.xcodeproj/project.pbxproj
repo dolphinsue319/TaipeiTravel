@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		820EC4822D21536F00AB0DA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 820EC4812D21536F00AB0DA1 /* Kingfisher */; };
+		820EC4892D2242F100AB0DA1 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 820EC4882D2242F100AB0DA1 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		820EC47F2D2144D800AB0DA1 /* TaipeiTravel.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TaipeiTravel.xctestplan; sourceTree = "<group>"; };
+		820EC4882D2242F100AB0DA1 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		828E7E0D2D1F7CD700D39897 /* TaipeiTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaipeiTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		828E7E232D1F7CD800D39897 /* TaipeiTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaipeiTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		828E7E2D2D1F7CD800D39897 /* TaipeiTravelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaipeiTravelUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				820EC47F2D2144D800AB0DA1 /* TaipeiTravel.xctestplan */,
+				820EC4882D2242F100AB0DA1 /* Localizable.xcstrings */,
 				828E7E0F2D1F7CD700D39897 /* TaipeiTravel */,
 				828E7E262D1F7CD800D39897 /* TaipeiTravelTests */,
 				828E7E302D1F7CD800D39897 /* TaipeiTravelUITests */,
@@ -226,6 +229,14 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
+				ja,
+				ko,
+				id,
+				th,
+				es,
+				vi,
 			);
 			mainGroup = 828E7E042D1F7CD700D39897;
 			minimizedProjectReferenceProxies = 1;
@@ -249,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				820EC4892D2242F100AB0DA1 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +431,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -475,6 +488,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
