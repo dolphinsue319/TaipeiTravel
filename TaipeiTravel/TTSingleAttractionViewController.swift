@@ -37,11 +37,9 @@ class TTSingleAttractionViewController: UIViewController {
         return t
     }()
 
-    private let attractionImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
+    private let imagesCollectionView: TTImagesCollectionView = {
+        let collectionView = TTImagesCollectionView()
+        return collectionView
     }()
 
     private let urlButton: UIButton = {
@@ -66,21 +64,21 @@ class TTSingleAttractionViewController: UIViewController {
         view.backgroundColor = .white
 
         // Add subviews
-        [attractionImageView, nameLabel, introductionTextView, urlButton].forEach { view.addSubview($0) }
+        [imagesCollectionView, nameLabel, introductionTextView, urlButton].forEach { view.addSubview($0) }
 
         // Layout using Auto Layout
-        attractionImageView.translatesAutoresizingMaskIntoConstraints = false
+        imagesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         introductionTextView.translatesAutoresizingMaskIntoConstraints = false
         urlButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            attractionImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            attractionImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            attractionImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            attractionImageView.heightAnchor.constraint(equalTo: attractionImageView.widthAnchor, multiplier: 0.75),
+            imagesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            imagesCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imagesCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            imagesCollectionView.heightAnchor.constraint(equalTo: imagesCollectionView.widthAnchor, multiplier: 0.75),
 
-            nameLabel.topAnchor.constraint(equalTo: attractionImageView.bottomAnchor, constant: 20),
+            nameLabel.topAnchor.constraint(equalTo: imagesCollectionView.bottomAnchor, constant: 20),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
@@ -98,19 +96,7 @@ class TTSingleAttractionViewController: UIViewController {
 
         nameLabel.text = attraction.name
         introductionTextView.text = attraction.introduction ?? "No introduction available."
-
-        if let imageURLString = attraction.imageURLStringArray?.first,
-           let url = URL(string: imageURLString) {
-            // Download image asynchronously (use a library like SDWebImage in a real app)
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self.attractionImageView.image = image
-                    }
-                }
-            }
-        }
-
+        imagesCollectionView.imageURLs = attraction.imageURLStringArray ?? []
         urlButton.isHidden = (attraction.urlString == nil)
     }
 
