@@ -11,12 +11,12 @@ import Combine
 class TTLocalizationManager {
 
     static let shared = TTLocalizationManager()
-    let valuesubject: CurrentValueSubject<TTLocalization, Never>
+    let userPreferredLanguageDidChangeSubject: CurrentValueSubject<TTLocalization, Never>
     let languages: [TTLocalization] = [.zhTw, .zhCn, .en, .ja, .ko, .es, .th, .vi]
 
     var userPreferredLanguage: TTLocalization = TTLocalizationManager.systemPreferredLanguage {
         didSet {
-            valuesubject.send(userPreferredLanguage)
+            userPreferredLanguageDidChangeSubject.send(userPreferredLanguage)
         }
     }
 
@@ -34,6 +34,6 @@ class TTLocalizationManager {
     }
 
     private init() {
-        self.valuesubject = .init(TTLocalizationManager.systemPreferredLanguage)
+        self.userPreferredLanguageDidChangeSubject = .init(TTLocalizationManager.systemPreferredLanguage)
     }
 }

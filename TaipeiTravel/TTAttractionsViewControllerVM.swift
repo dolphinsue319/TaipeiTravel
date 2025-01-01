@@ -27,7 +27,13 @@ class TTAttractionsViewControllerVM {
         return attractionArray[index]
     }
 
-    func fetchAttractions() {
+    func fetchAttractions(isRefresh: Bool) {
+
+        if isRefresh {
+            self.currentPageIndex = 1
+            self.attractionArray.removeAll()
+        }
+
         if fetchingTask != nil { return }
         if let totalAttractions, numberOfAttractions >= totalAttractions { return }
         fetchingTask = Task { [weak self] in

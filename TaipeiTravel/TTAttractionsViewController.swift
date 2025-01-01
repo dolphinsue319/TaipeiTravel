@@ -18,6 +18,10 @@ class TTAttractionsViewController: UIViewController {
 
         self.navigationItem.title = String(localized: "touristAttractions")
 
+        TTLocalizationManager.shared.userPreferredLanguageDidChangeSubject.sink { [weak self] _ in
+            self?.viewModel.fetchAttractions(isRefresh: true)
+        }.store(in: &subscriptions)
+
         viewModel.didFetchAttractions.sink { [weak self] in
             guard let self else { return }
             Task { @MainActor in
@@ -33,7 +37,7 @@ class TTAttractionsViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        viewModel.fetchAttractions()
+        viewModel.fetchAttractions(isRefresh: true)
     }
 
     // MARK: - private
@@ -101,7 +105,7 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.section == 0 { return }
         if indexPath.row == viewModel.numberOfAttractions - 2 {
-            viewModel.fetchAttractions()
+            viewModel.fetchAttractions(isRefresh: false)
         }
     }
 
