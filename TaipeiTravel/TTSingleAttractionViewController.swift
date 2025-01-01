@@ -30,12 +30,11 @@ class TTSingleAttractionViewController: UIViewController {
         return label
     }()
 
-    private let introductionLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.numberOfLines = 0
-        label.textColor = .darkGray
-        return label
+    private let introductionTextView: UITextView = {
+        let t = UITextView()
+        t.font = UIFont.systemFont(ofSize: 16)
+        t.textColor = .darkGray
+        return t
     }()
 
     private let attractionImageView: UIImageView = {
@@ -67,12 +66,12 @@ class TTSingleAttractionViewController: UIViewController {
         view.backgroundColor = .white
 
         // Add subviews
-        [attractionImageView, nameLabel, introductionLabel, urlButton].forEach { view.addSubview($0) }
+        [attractionImageView, nameLabel, introductionTextView, urlButton].forEach { view.addSubview($0) }
 
         // Layout using Auto Layout
         attractionImageView.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        introductionLabel.translatesAutoresizingMaskIntoConstraints = false
+        introductionTextView.translatesAutoresizingMaskIntoConstraints = false
         urlButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
@@ -85,19 +84,20 @@ class TTSingleAttractionViewController: UIViewController {
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-            introductionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            introductionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            introductionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            introductionTextView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            introductionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            introductionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
-            urlButton.topAnchor.constraint(equalTo: introductionLabel.bottomAnchor, constant: 20),
-            urlButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            urlButton.topAnchor.constraint(equalTo: introductionTextView.bottomAnchor, constant: 20),
+            urlButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            urlButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
 
     private func populateData() {
 
         nameLabel.text = attraction.name
-        introductionLabel.text = attraction.introduction ?? "No introduction available."
+        introductionTextView.text = attraction.introduction ?? "No introduction available."
 
         if let imageURLString = attraction.imageURLStringArray?.first,
            let url = URL(string: imageURLString) {
