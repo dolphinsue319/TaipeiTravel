@@ -22,8 +22,6 @@ private extension TTLocalization {
             return "ko"
         case .es:
             return "es"
-        case .id:
-            return "id"
         case .th:
             return "th"
         case .vi:

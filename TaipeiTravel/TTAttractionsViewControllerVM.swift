@@ -29,7 +29,7 @@ class TTAttractionsViewControllerVM {
         fetchingTask = Task { [weak self] in
             guard let self else { return }
             do {
-                let result = try await apiManager.fetchAttractionArray(at: currentPageIndex, localization: .zhTw)
+                let result = try await apiManager.fetchAttractionArray(at: currentPageIndex, localization: TTLocalizationManager.shared.userPreferredLanguage)
                 switch result {
                     case .success(let container):
                     self.currentPageIndex += 1

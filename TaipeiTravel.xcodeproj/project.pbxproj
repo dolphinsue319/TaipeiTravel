@@ -233,7 +233,6 @@
 				"zh-Hant",
 				ja,
 				ko,
-				id,
 				th,
 				es,
 				vi,
