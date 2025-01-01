@@ -76,6 +76,13 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
             viewModel.fetchAttractions()
         }
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let attraction = viewModel.attraction(at: indexPath.row) else { return }
+        let vc = TTSingleAttractionViewController(attraction: attraction)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 fileprivate class TTCell: UITableViewCell {
