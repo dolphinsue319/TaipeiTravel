@@ -18,6 +18,10 @@ class TTAttractionsViewControllerVM {
 
     var numberOfAttractions: Int { attractionArray.count }
 
+    func newsPageURL() -> URL? {
+        return URL(string: "https://www.travel.taipei/\(TTLocalizationManager.shared.userPreferredLanguage.languageCode)/news")
+    }
+
     func attraction(at index: Int) -> TTAttractionModel? {
         if index >= attractionArray.count { return nil }
         return attractionArray[index]

@@ -17,4 +17,25 @@ enum TTLocalization {
     case es
     case th
     case vi
+
+    var languageCode: String {
+        switch self {
+        case .zhTw:
+            return "zh-tw"
+        case .zhCn:
+            return "zh-cn"
+        case .en:
+            return"en"
+        case .ja:
+            return"ja"
+        case .ko:
+            return "ko"
+        case .es:
+            return "es"
+        case .th:
+            return "th"
+        case .vi:
+            return "vi"
+        }
+    }
 }

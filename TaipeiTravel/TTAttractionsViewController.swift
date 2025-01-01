@@ -106,7 +106,11 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-#warning("")
+            guard let url = viewModel.newsPageURL() else {
+                return
+            }
+            let vc = TTWebViewController(url: url)
+            self.navigationController?.pushViewController(vc, animated: true)
             return
         }
         guard let attraction = viewModel.attraction(at: indexPath.row) else { return }
