@@ -11,7 +11,7 @@ import Kingfisher
 class TTImagesCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Properties
-    var imageURLs: [String] = [] {
+    var imageURLStringArray: [String] = [] {
         didSet {
             reloadData() // 更新資料時重新載入
         }
@@ -41,21 +41,21 @@ class TTImagesCollectionView: UICollectionView, UICollectionViewDataSource, UICo
 
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageURLs.count
+        return imageURLStringArray.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ImageCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let imageURL = imageURLs[indexPath.item]
+        let imageURL = imageURLStringArray[indexPath.item]
         cell.configure(with: imageURL)
         return cell
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: self.bounds.height)
+        return CGSize(width: self.bounds.width - 20, height: self.bounds.height)
     }
 }
 

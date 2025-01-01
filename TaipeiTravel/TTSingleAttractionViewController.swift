@@ -99,8 +99,12 @@ class TTSingleAttractionViewController: UIViewController {
     private func populateData() {
 
         nameLabel.text = attraction.name
-        introductionTextView.text = attraction.introduction ?? "No introduction available."
-        imagesCollectionView.imageURLs = attraction.imageURLStringArray ?? []
+        if let introduction = attraction.introduction {
+            introductionTextView.text = introduction
+        }
+        if let imageURLs = attraction.imageURLStringArray {
+            imagesCollectionView.imageURLStringArray = imageURLs
+        }
         urlButton.isHidden = (attraction.urlString == nil)
     }
 
