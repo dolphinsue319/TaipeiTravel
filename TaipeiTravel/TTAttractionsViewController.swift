@@ -38,11 +38,13 @@ class TTAttractionsViewController: UIViewController {
 
     // MARK: - private
     static let cellIdentifier: String = "cell"
+    static let newsCellIdentifier: String = "newsCell"
     private let viewModel = TTAttractionsViewControllerVM(apiManager: TTRestfulAPIManagerImpl())
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(TTCell.self, forCellReuseIdentifier: Self.cellIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.newsCellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .systemBackground
@@ -63,11 +65,24 @@ class TTAttractionsViewController: UIViewController {
 
 extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegate {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.numberOfAttractions
+        if section == 0 {
+            return 1
+        }
+        return viewModel.numberOfAttractions
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Self.newsCellIdentifier, for: indexPath)
+            cell.textLabel?.text = NSLocalizedString("latestNews", comment: "")
+            return cell
+        }
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier, for: indexPath) as? TTCell else {
             return UITableViewCell()
@@ -83,12 +98,17 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 { return }
         if indexPath.row == viewModel.numberOfAttractions - 2 {
             viewModel.fetchAttractions()
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+#warning("")
+            return
+        }
         guard let attraction = viewModel.attraction(at: indexPath.row) else { return }
         let vc = TTSingleAttractionViewController(attraction: attraction)
         self.navigationController?.pushViewController(vc, animated: true)
