@@ -18,31 +18,3 @@ enum TTLocalization {
     case th
     case vi
 }
-
-class TTLocalizationManager {
-
-    static let shared = TTLocalizationManager()
-
-    var userPreferredLanguage: TTLocalization = TTLocalizationManager.systemPreferredLanguage {
-        didSet {
-#warning("發出通知")
-        }
-    }
-
-    static var systemPreferredLanguage: TTLocalization {
-        switch Locale.preferredLanguages.first?.lowercased() {
-        case "zh-hant-tw": return .zhTw
-        case "zh-hans": return .zhCn
-        case "ja": return .ja
-        case "ko": return .ko
-        case "es": return .es
-        case "th": return .th
-        case "vi": return .vi
-        default: return .en
-        }
-    }
-
-    private init() {
-        
-    }
-}

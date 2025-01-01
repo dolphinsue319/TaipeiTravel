@@ -14,6 +14,8 @@ class TTAttractionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationItem.rightBarButtonItem = languageItem
+
         self.navigationItem.title = String(localized: "touristAttractions")
 
         viewModel.didFetchAttractions.sink { [weak self] in
@@ -48,6 +50,15 @@ class TTAttractionsViewController: UIViewController {
     }()
 
     private var subscriptions: Set<AnyCancellable> = .init()
+
+    private lazy var languageItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "globe"), style: .plain, target: nil, action: #selector(didTapLanguageItem))
+        return item
+    }()
+
+    @objc func didTapLanguageItem() {
+        print("tap language")
+    }
 }
 
 extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegate {

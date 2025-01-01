@@ -53,6 +53,7 @@
 				RestfulAPI/TTRestfulAPIManager.swift,
 				TTAttractionsViewControllerVM.swift,
 				TTLocalization.swift,
+				TTLocalizationManager.swift,
 			);
 			target = 828E7E222D1F7CD800D39897 /* TaipeiTravelTests */;
 		};
