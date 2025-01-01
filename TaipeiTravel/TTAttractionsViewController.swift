@@ -54,12 +54,13 @@ class TTAttractionsViewController: UIViewController {
     private var subscriptions: Set<AnyCancellable> = .init()
 
     private lazy var languageItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "globe"), style: .plain, target: nil, action: #selector(didTapLanguageItem))
+        let item = UIBarButtonItem(image: UIImage(systemName: "globe"), style: .plain, target: self, action: #selector(didTapLanguageItem))
         return item
     }()
 
     @objc func didTapLanguageItem() {
-        print("tap language")
+        let vc = TTLocalizationTableViewController()
+        self.present(vc, animated: true)
     }
 }
 

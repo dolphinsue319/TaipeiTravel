@@ -8,7 +8,7 @@
 import Foundation
 
 // 在 Attractions/All 那支 API 裡，已經沒有印尼文的參數了，所以這裡也不實作印尼文
-enum TTLocalization {
+enum TTLocalization: CustomStringConvertible {
     case zhTw
     case zhCn
     case en
@@ -36,6 +36,19 @@ enum TTLocalization {
             return "th"
         case .vi:
             return "vi"
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .zhTw: return "繁體中文"
+        case .zhCn: return "简体中文"
+        case .en: return "English"
+        case .ja: return "日本語"
+        case .ko: return "한국어"
+        case .es: return "Español"
+        case .th: return "ภาษาไทย"
+        case .vi: return "Tiếng Việt"
         }
     }
 }
