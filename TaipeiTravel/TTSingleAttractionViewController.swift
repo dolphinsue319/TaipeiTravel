@@ -42,13 +42,17 @@ class TTSingleAttractionViewController: UIViewController {
         return collectionView
     }()
 
-    private let urlButton: UIButton = {
+    private lazy var urlButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Visit Website", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.setTitleColor(.systemBlue, for: .normal)
-#warning("")
-//        button.addTarget(self, action: #selector(openURL), for: .touchUpInside)
+        let act = UIAction(title: "") { [weak self] _ in
+            guard let self, let urlString = attraction.urlString, let url = URL(string: urlString) else { return }
+            let vc = TTWebViewController(url: url)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        button.addAction(act, for: .touchUpInside)
         return button
     }()
 
@@ -100,9 +104,4 @@ class TTSingleAttractionViewController: UIViewController {
         urlButton.isHidden = (attraction.urlString == nil)
     }
 
-    // MARK: - Actions
-//    @objc private func openURL() {
-//        guard let urlString = attraction?.urlString, let url = URL(string: urlString) else { return }
-//        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//    }
 }
