@@ -30,13 +30,16 @@ class TTImagesCollectionView: UICollectionView, UICollectionViewDataSource, UICo
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Setup
+    // MARK: - privates
+
+    private let reuseIdentifier: String = "TTImagesCollectionViewCell"
+
     private func commonInit() {
         backgroundColor = .systemBackground
         showsHorizontalScrollIndicator = false
         dataSource = self
         delegate = self
-        register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.reuseIdentifier)
+        register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
 
     // MARK: - UICollectionViewDataSource
@@ -45,7 +48,7 @@ class TTImagesCollectionView: UICollectionView, UICollectionViewDataSource, UICo
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.reuseIdentifier, for: indexPath) as? ImageCollectionViewCell else {
+        guard let cell = dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ImageCollectionViewCell else {
             return UICollectionViewCell()
         }
         let imageURL = imageURLStringArray[indexPath.item]
@@ -60,8 +63,7 @@ class TTImagesCollectionView: UICollectionView, UICollectionViewDataSource, UICo
 }
 
 // MARK: - Custom UICollectionViewCell
-class ImageCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "ImageCollectionViewCell"
+fileprivate class ImageCollectionViewCell: UICollectionViewCell {
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()

@@ -9,11 +9,11 @@ import UIKit
 
 class TTLocalizationTableViewController: UITableViewController {
 
-    fileprivate static let cellIdentifier = "LanguageCell"
+    fileprivate let cellIdentifier = "LanguageCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Self.cellIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
 
     // MARK: - Table view data source
@@ -27,7 +27,7 @@ class TTLocalizationTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         let language = TTLocalizationManager.shared.languages[indexPath.row]
         cell.textLabel?.text = "\(language)"
         if language == TTLocalizationManager.shared.userPreferredLanguage {

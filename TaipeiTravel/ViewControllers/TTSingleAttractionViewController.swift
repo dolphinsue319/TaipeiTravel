@@ -20,8 +20,14 @@ class TTSingleAttractionViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - UI Components
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        populateData()
+    }
+
+    // MARK: - Privates
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 24)
@@ -55,13 +61,6 @@ class TTSingleAttractionViewController: UIViewController {
         button.addAction(act, for: .touchUpInside)
         return button
     }()
-
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-        populateData()
-    }
 
     // MARK: - Setup Methods
     private func setupUI() {
