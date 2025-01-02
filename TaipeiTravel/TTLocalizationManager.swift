@@ -20,6 +20,12 @@ class TTLocalizationManager {
         }
     }
 
+    func localizedString(_ value: String.LocalizationValue) -> String {
+        var localizable = LocalizedStringResource(value)
+        localizable.locale = userPreferredLanguage.locale
+        return String(localized: localizable)
+    }
+
     static var systemPreferredLanguage: TTLocalization {
         switch Locale.preferredLanguages.first?.lowercased() {
         case "zh-hant-tw": return .zhTw

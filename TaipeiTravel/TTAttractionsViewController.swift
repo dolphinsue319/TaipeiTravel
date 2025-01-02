@@ -84,7 +84,7 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
 
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Self.newsCellIdentifier, for: indexPath)
-            cell.textLabel?.text = String(localized: "latestNews", locale: TTLocalizationManager.shared.userPreferredLanguage.locale)
+            cell.textLabel?.text = TTLocalizationManager.shared.localizedString("latestNews")
             return cell
         }
 
