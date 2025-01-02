@@ -33,16 +33,7 @@
         "identifier" : "828E7E222D1F7CD800D39897",
         "name" : "TaipeiTravelTests"
       }
-    },
-    {
-      "enabled" : false,
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:TaipeiTravel.xcodeproj",
-        "identifier" : "828E7E2C2D1F7CD800D39897",
-        "name" : "TaipeiTravelUITests"
-      }
     }
   ],
-  "version" : 1
+  "version" : 2
 }
