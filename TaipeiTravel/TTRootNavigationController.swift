@@ -13,4 +13,13 @@ class TTRootNavigationController: UINavigationController {
         super.init(rootViewController: TTAttractionsViewController())
         self.view.backgroundColor = .systemBackground
     }
+
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        let transition = CATransition()
+        transition.duration = 0.5 // 動畫持續時間
+        transition.timingFunction = CAMediaTimingFunction(name: .easeOut) // 動畫速度曲線
+        transition.type = .fade // 動畫類型
+        self.view.layer.add(transition, forKey: nil)
+        super.pushViewController(viewController, animated: false) // 關閉預設動畫
+    }
 }
