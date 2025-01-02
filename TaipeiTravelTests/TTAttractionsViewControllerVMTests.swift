@@ -16,7 +16,7 @@ class TTAttractionsViewControllerVMTests {
 
     @Test func fetchAttractions() async throws {
         let vm = TTAttractionsViewControllerVM(apiManager: APIManagerMock())
-        vm.fetchAttractions()
+        vm.fetchAttractions(isRefresh: true)
         vm.didFetchAttractions.sink {
             #expect(vm.numberOfAttractions == pageSize)
             for i in 0..<pageSize {
