@@ -16,10 +16,9 @@ class TTAttractionsViewController: UIViewController {
 
         self.navigationItem.rightBarButtonItem = languageItem
 
-        self.navigationItem.title = String(localized: "touristAttractions")
-
         TTLocalizationManager.shared.userPreferredLanguageDidChangeSubject.sink { [weak self] _ in
             self?.viewModel.fetchAttractions(isRefresh: true)
+            self?.navigationItem.title = String(localized: "touristAttractions", locale: TTLocalizationManager.shared.userPreferredLanguage.locale)
         }.store(in: &subscriptions)
 
         viewModel.didFetchAttractions.sink { [weak self] in
@@ -85,7 +84,7 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
 
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Self.newsCellIdentifier, for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("latestNews", comment: "")
+            cell.textLabel?.text = String(localized: "latestNews", locale: TTLocalizationManager.shared.userPreferredLanguage.locale)
             return cell
         }
 

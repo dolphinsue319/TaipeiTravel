@@ -18,6 +18,27 @@ enum TTLocalization: CustomStringConvertible {
     case th
     case vi
 
+    var locale: Locale {
+        switch self {
+        case .zhTw:
+            return Locale(identifier: "zh-TW")
+        case .zhCn:
+            return Locale(identifier: "zh-CN")
+        case .en:
+            return Locale(identifier: "en-US")
+        case .ja:
+            return Locale(identifier: "ja-JP")
+        case .ko:
+            return Locale(identifier: "ko-KR")
+        case .es:
+            return Locale(identifier: "es-ES")
+        case .th:
+            return Locale(identifier: "th-TH")
+        case .vi:
+            return Locale(identifier: "vi-VN")
+        }
+    }
+
     var languageCode: String {
         switch self {
         case .zhTw:
