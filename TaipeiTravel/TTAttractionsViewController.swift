@@ -15,10 +15,11 @@ class TTAttractionsViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationItem.rightBarButtonItem = languageItem
+        self.navigationItem.title = TTLocalizationManager.shared.localizedString("touristAttractions")
 
         TTLocalizationManager.shared.userPreferredLanguageDidChangeSubject.sink { [weak self] _ in
             self?.viewModel.fetchAttractions(isRefresh: true)
-            self?.navigationItem.title = String(localized: "touristAttractions", locale: TTLocalizationManager.shared.userPreferredLanguage.locale)
+            self?.navigationItem.title = TTLocalizationManager.shared.localizedString("touristAttractions")
         }.store(in: &subscriptions)
 
         viewModel.didFetchAttractions.sink { [weak self] in
@@ -109,6 +110,7 @@ extension TTAttractionsViewController: UITableViewDataSource, UITableViewDelegat
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             guard let url = viewModel.newsPageURL() else {
                 return
