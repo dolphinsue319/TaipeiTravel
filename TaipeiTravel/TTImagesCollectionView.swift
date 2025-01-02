@@ -32,7 +32,7 @@ class TTImagesCollectionView: UICollectionView, UICollectionViewDataSource, UICo
 
     // MARK: - Setup
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         showsHorizontalScrollIndicator = false
         dataSource = self
         delegate = self

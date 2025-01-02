@@ -65,7 +65,7 @@ class TTSingleAttractionViewController: UIViewController {
 
     // MARK: - Setup Methods
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
 
         // Add subviews
         [imagesCollectionView, nameLabel, introductionTextView, urlButton].forEach { view.addSubview($0) }

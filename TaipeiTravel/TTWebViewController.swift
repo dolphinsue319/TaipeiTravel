@@ -43,7 +43,7 @@ class TTWebViewController: UIViewController {
     }()
 
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
 
         // Add WebView to the view
         view.addSubview(webView)
